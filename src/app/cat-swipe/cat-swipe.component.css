@@ -1,0 +1,159 @@
+.swipe-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.stack {
+  position: relative;
+  width: min(520px, 92vw);
+  height: min(640px, 76vh);
+}
+
+.stack:focus {
+  outline: 4px solid rgba(25,118,210,0.14);
+  outline-offset: 6px;
+}
+
+.card {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 14px 30px rgba(20, 20, 20, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: pan-y;
+  transition: transform 260ms cubic-bezier(.2,.9,.2,1), opacity 220ms ease, box-shadow 220ms ease;
+}
+
+.card.top {
+  cursor: grab;
+}
+
+.card.top:focus {
+  box-shadow: 0 18px 40px rgba(20,20,20,0.22);
+}
+
+.card:not(.top) {
+  transition: transform 260ms cubic-bezier(.2,.9,.2,1), opacity 220ms ease;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.badge {
+  position: absolute;
+  top: 24px;
+  padding: 8px 14px;
+  font-weight: 800;
+  border-radius: 6px;
+  color: white;
+  letter-spacing: 1px;
+  transform: rotate(-12deg);
+  pointer-events: none;
+}
+
+.badge.like {
+  left: 20px;
+  background: rgba(46, 204, 113, 0.95);
+}
+
+.badge.dislike {
+  right: 20px;
+  background: rgba(231, 76, 60, 0.95);
+  transform: rotate(12deg);
+}
+
+.placeholder {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg,#f6f6f6,#ededed);
+}
+
+.loader {
+  color: #666;
+  font-weight: 600;
+}
+
+.empty {
+  text-align: center;
+}
+
+.liked-list {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 12px 0 20px;
+}
+
+.liked img {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+
+.liked {
+  position: relative;
+}
+
+.unlike {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  background: rgba(255,255,255,0.98);
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  min-width: 56px;
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.btn {
+  background: #1976d2;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+}
+
+@media (max-width: 480px) {
+  .stack {
+    height: 68vh;
+  }
+  .liked img {
+    width: 76px;
+    height: 76px;
+  }
+}

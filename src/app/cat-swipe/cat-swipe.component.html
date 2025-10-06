@@ -1,0 +1,46 @@
+<div class="swipe-container">
+  <div class="stack" #stack *ngIf="cards.length > 0"
+    tabindex="0"
+    role="application"
+    aria-label="Cat swipe area. Use left and right arrow keys to dislike or like."
+    (keydown)="onKeydown($event)"
+    (focus)="onFocus()"
+    (blur)="onBlur()">
+    <ng-container *ngFor="let card of cards; let i = index">
+      <div
+        class="card"
+        [class.top]="i === 0"
+        [ngStyle]="getCardStyle(i)"
+  (pointerdown)="i === 0 && startDrag($event)"
+  (pointermove)="i === 0 && moveDrag($event)"
+  (pointerup)="i === 0 && endDrag()"
+  (pointercancel)="i === 0 && endDrag()"
+        [attr.data-id]="card.id"
+      >
+        <div class="badge like" *ngIf="i === 0" [style.opacity]="dragX > 0 ? badgeOpacity() : 0">LIKE</div>
+        <div class="badge dislike" *ngIf="i === 0" [style.opacity]="dragX < 0 ? badgeOpacity() : 0">NOPE</div>
+
+        <div class="placeholder" *ngIf="!imageLoaded.get(card.id)">
+          <div class="loader">Loading…</div>
+        </div>
+
+        <img *ngIf="imageLoaded.get(card.id) !== false" [src]="card.url" alt="Cute cat" />
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="empty" *ngIf="cards.length === 0">
+    <h2>All done!</h2>
+    <p>You liked <strong>{{ liked.length }}</strong> cats.</p>
+    <div class="liked-list">
+      <div class="liked" *ngFor="let c of liked; let idx = index">
+        <img [src]="c.url" alt="liked cat" />
+        <button class="unlike" aria-label="Unlike this cat and return it to the deck" (click)="unlike(idx)">Unlike</button>
+      </div>
+    </div>
+    <button (click)="reset()" class="btn">Try again</button>
+  </div>
+
+  <!-- ARIA live region for screen-reader announcements -->
+  <div #announcer class="sr-only" aria-live="polite" aria-atomic="true"></div>
+</div>
